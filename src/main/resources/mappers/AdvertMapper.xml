@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adv.dao.AdvertMapper" >
+  <resultMap id="BaseResultMap" type="com.adv.pojo.Advert" >
+    <constructor >
+      <idArg column="adv_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="adv_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="adv_text" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="adv_image" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    adv_id, type, category_id, adv_name, adv_text, adv_image
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from advert
+    where adv_id = #{advId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from advert
+    where adv_id = #{advId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.adv.pojo.Advert" >
+    insert into advert (adv_id, type, category_id, 
+      adv_name, adv_text, adv_image
+      )
+    values (#{advId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
+      #{advName,jdbcType=VARCHAR}, #{advText,jdbcType=VARCHAR}, #{advImage,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.adv.pojo.Advert" >
+    insert into advert
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advId != null" >
+        adv_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="advName != null" >
+        adv_name,
+      </if>
+      <if test="advText != null" >
+        adv_text,
+      </if>
+      <if test="advImage != null" >
+        adv_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advId != null" >
+        #{advId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="advName != null" >
+        #{advName,jdbcType=VARCHAR},
+      </if>
+      <if test="advText != null" >
+        #{advText,jdbcType=VARCHAR},
+      </if>
+      <if test="advImage != null" >
+        #{advImage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adv.pojo.Advert" >
+    update advert
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="advName != null" >
+        adv_name = #{advName,jdbcType=VARCHAR},
+      </if>
+      <if test="advText != null" >
+        adv_text = #{advText,jdbcType=VARCHAR},
+      </if>
+      <if test="advImage != null" >
+        adv_image = #{advImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where adv_id = #{advId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adv.pojo.Advert" >
+    update advert
+    set type = #{type,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      adv_name = #{advName,jdbcType=VARCHAR},
+      adv_text = #{advText,jdbcType=VARCHAR},
+      adv_image = #{advImage,jdbcType=VARCHAR}
+    where adv_id = #{advId,jdbcType=INTEGER}
+  </update>
+</mapper>
